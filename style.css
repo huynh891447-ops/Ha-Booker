@@ -513,91 +513,258 @@ select:focus {
 }
 
 /* =========================================
-   MOBILE RESPONSIVE STYLES (iPhone)
+   PREMIUM MOBILE RESPONSIVE STYLES
+   Elegant, Luxurious, Refined
    ========================================= */
 
+/* Mobile animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* =========================================
+   MOBILE STYLES (480px and below)
+   ========================================= */
 @media (max-width: 480px) {
 
-    /* Base adjustments */
+    /* Premium Base Styles */
     body {
-        font-size: 14px;
+        font-size: 15px;
+        background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 100%);
+        -webkit-font-smoothing: antialiased;
     }
 
     .container {
-        padding: 0 0.75rem;
+        padding: 0 1.25rem;
     }
 
-    /* Navbar mobile */
+    /* Premium Navigation */
     .navbar {
-        padding: 0.75rem 1rem;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
     }
 
     .nav-links {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 0;
+        width: 100%;
     }
 
     .nav-links a {
-        margin-left: 0;
-        font-size: 0.7rem;
-        padding: 0.25rem 0.5rem;
+        margin: 0;
+        padding: 0.5rem 1rem;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #666;
+        transition: color 0.3s ease;
+        position: relative;
     }
 
-    /* Headings */
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background: #B76E79;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[style*="border-bottom"]::after {
+        width: 60%;
+    }
+
+    /* Elegant Headings */
     h1 {
-        font-size: 1.75rem !important;
+        font-size: 2rem !important;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+        font-weight: 400;
     }
 
-    /* Booking step container */
-    .step-container {
-        margin: 1rem;
-        padding: 1rem;
+    #step-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 2rem !important;
     }
 
-    /* Service cards - stack on mobile */
+    /* Progress Dots - Refined */
+    .progress-indicator {
+        margin-bottom: 2rem;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #E5E5E5;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dot.active {
+        background: linear-gradient(135deg, #B76E79 0%, #8B5A62 100%);
+        box-shadow: 0 0 12px rgba(183, 110, 121, 0.4);
+    }
+
+    /* Premium Service Cards */
     .service-card {
-        padding: 0.875rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+        padding: 1.25rem;
+        margin-bottom: 0.75rem;
+        background: #FFFFFF;
+        border: none !important;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeUp 0.5s ease-out backwards;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .service-card:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .service-card:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .service-card:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    .service-card:nth-child(4) {
+        animation-delay: 0.2s;
+    }
+
+    .service-card:nth-child(5) {
+        animation-delay: 0.25s;
+    }
+
+    .service-card:nth-child(6) {
+        animation-delay: 0.3s;
+    }
+
+    .service-card:nth-child(7) {
+        animation-delay: 0.35s;
+    }
+
+    .service-card:active {
+        transform: scale(0.98);
+    }
+
+    .service-card.selected {
+        background: linear-gradient(135deg, #FFF5F7 0%, #FFFFFF 100%);
+        border: 1px solid #B76E79 !important;
+        box-shadow: 0 4px 20px rgba(183, 110, 121, 0.15);
     }
 
     .service-card h4 {
         font-size: 1rem;
+        font-weight: 600;
+        color: #2D2D2D;
+        margin-bottom: 0.25rem;
     }
 
     .service-card p {
         font-size: 0.8rem;
+        color: #888;
+        font-weight: 400;
     }
 
-    /* Date cards - smaller on mobile */
+    .service-card .check-icon {
+        width: 20px;
+        height: 20px;
+        color: #B76E79;
+    }
+
+    /* Premium Date Cards */
     .date-card {
-        min-width: 60px;
-        padding: 0.75rem 0.5rem;
+        min-width: 65px;
+        padding: 1rem 0.75rem;
+        background: #FFFFFF;
+        border: none !important;
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+    }
+
+    .date-card:active {
+        transform: scale(0.95);
+    }
+
+    .date-card.selected {
+        background: linear-gradient(135deg, #333333 0%, #1A1A1A 100%);
+        color: white;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
     }
 
     .date-card div:first-child {
         font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        opacity: 0.7;
     }
 
     .date-card div:last-child {
-        font-size: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 0.25rem;
     }
 
-    /* Dates container - horizontal scroll */
     #dates-container {
         display: flex;
+        gap: 0.75rem;
         overflow-x: auto;
-        gap: 0.5rem;
-        padding-bottom: 0.5rem;
+        padding: 0.5rem 0 1rem 0;
+        scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
     }
 
@@ -605,79 +772,195 @@ select:focus {
         display: none;
     }
 
-    /* Time slots grid */
+    #dates-container .date-card {
+        scroll-snap-align: center;
+        flex-shrink: 0;
+    }
+
+    /* Premium Time Slots */
     #times-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.5rem;
+        gap: 0.625rem;
     }
 
     .time-slot {
-        padding: 0.625rem 0.25rem;
-        font-size: 0.75rem;
+        padding: 0.875rem 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        background: #FFFFFF;
+        border: 1px solid #EFEFEF !important;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
 
-    /* Buttons */
-    .btn {
-        padding: 10px 24px;
-        font-size: 0.9rem;
-        width: 100%;
+    .time-slot:active:not(.disabled) {
+        transform: scale(0.95);
     }
 
-    /* Form inputs */
-    input,
-    textarea,
-    select {
+    .time-slot.selected {
+        background: linear-gradient(135deg, #333333 0%, #1A1A1A 100%);
+        color: white;
+        border-color: transparent !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .time-slot.disabled {
+        background: #F8F8F8;
+        color: #CCC;
+        border-color: #F0F0F0 !important;
+        opacity: 0.6;
+    }
+
+    /* Premium Buttons */
+    .minimal-btn-primary,
+    button[type="submit"] {
+        padding: 1rem 2rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #333333 0%, #1A1A1A 100%);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .minimal-btn-primary:active,
+    button[type="submit"]:active {
+        transform: scale(0.97);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .minimal-btn-primary:disabled {
+        background: #E5E5E5;
+        color: #999;
+        box-shadow: none;
+    }
+
+    /* Premium Form Inputs */
+    .minimal-input,
+    input[type="text"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="email"],
+    textarea {
         font-size: 16px !important;
-        /* Prevents iOS zoom on focus */
-        padding: 0.875rem;
+        padding: 1rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #E5E5E5;
+        border-radius: 0;
+        transition: border-color 0.3s ease;
     }
 
-    /* Admin Dashboard Mobile */
+    .minimal-input:focus,
+    input:focus,
+    textarea:focus {
+        border-bottom-color: #B76E79;
+        box-shadow: none;
+        outline: none;
+        transform: none;
+    }
+
+    .minimal-input::placeholder,
+    input::placeholder,
+    textarea::placeholder {
+        color: #BBB;
+        font-style: italic;
+    }
+
+    /* Review Section - Premium Look */
+    #step-3>div:first-child {
+        background: linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%);
+        border-radius: 20px;
+        padding: 2rem 1.5rem !important;
+        margin-bottom: 2rem;
+    }
+
+    #review-service {
+        font-size: 1.75rem !important;
+        color: #2D2D2D;
+    }
+
+    #review-datetime {
+        font-size: 1.1rem !important;
+        color: #666;
+    }
+
+    #review-price {
+        font-size: 2rem !important;
+        background: linear-gradient(135deg, #B76E79 0%, #8B5A62 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Admin Dashboard - Premium Mobile */
     .dashboard-header {
-        padding: 0.75rem 1rem;
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+        padding: 1rem 1.25rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .dashboard-container {
-        margin: 1rem auto;
-        padding: 0 0.5rem;
+        padding: 0 1rem;
     }
 
-    /* Admin sidebar - horizontal tabs on mobile */
+    /* Admin Tabs - Pill Style */
     .dash-sidebar {
         display: flex !important;
         flex-direction: row !important;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        background: #F5F5F5;
+        border-radius: 30px;
+        margin-bottom: 1.5rem;
         overflow-x: auto;
-        gap: 0;
-        padding: 0;
-        white-space: nowrap;
         -webkit-overflow-scrolling: touch;
     }
 
     .dash-link {
-        padding: 0.5rem 0.75rem !important;
-        font-size: 0.7rem !important;
-        border-bottom: 2px solid transparent;
+        padding: 0.625rem 1rem !important;
+        font-size: 0.65rem !important;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 20px;
+        background: transparent;
+        color: #666;
+        white-space: nowrap;
+        border: none !important;
+        transition: all 0.3s ease;
     }
 
     .dash-link.active {
-        border-bottom: 2px solid var(--color-secondary);
+        background: #333;
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
-    /* Calendar grid */
+    /* Premium Calendar */
     #admin-calendar-grid {
-        gap: 0.25rem;
+        gap: 0.375rem;
+        background: #FFFFFF;
+        padding: 1rem;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     }
 
     #admin-calendar-grid>div {
-        font-size: 0.75rem;
-        padding: 0.25rem;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        border-radius: 10px;
+        transition: all 0.2s ease;
     }
 
-    /* Appointments table - card view on mobile */
+    /* Appointment Cards - Premium */
     .minimal-table {
         display: block;
     }
@@ -687,159 +970,208 @@ select:focus {
     }
 
     .minimal-table tbody {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
     }
 
     .minimal-table tr {
         display: block;
-        background: white;
-        margin-bottom: 0.75rem;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 1px solid #eee;
+        background: #FFFFFF;
+        padding: 1.25rem;
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        animation: fadeUp 0.4s ease-out backwards;
     }
 
     .minimal-table td {
         display: block;
-        padding: 0.375rem 0;
+        padding: 0.25rem 0;
         border: none;
-        text-align: left;
+        font-size: 0.9rem;
     }
 
-    .minimal-table td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        display: inline-block;
-        width: 80px;
-        color: #666;
-        font-size: 0.75rem;
+    .minimal-table td:first-child {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #B76E79;
+        margin-bottom: 0.5rem;
     }
 
-    /* Action links on mobile */
+    /* Action Links - Pills */
     .action-link {
         display: inline-block;
-        padding: 0.375rem 0.75rem;
-        background: #f3f4f6;
-        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        background: #F5F5F5;
+        border-radius: 20px;
         margin: 0.25rem 0.25rem 0 0;
+        font-weight: 500;
+        font-size: 0.75rem;
         text-decoration: none;
+        transition: all 0.3s ease;
     }
 
-    /* Modals on mobile */
-    .modal-content,
-    [style*="background: white"][style*="padding: 2rem"] {
-        width: 95% !important;
-        max-width: none !important;
+    .action-link:active {
+        transform: scale(0.95);
+    }
+
+    /* Modals - Premium Glass Effect */
+    #create-modal>div,
+    #edit-modal>div,
+    #notes-modal>div,
+    #service-modal>div {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 1.5rem !important;
         margin: 1rem;
-        padding: 1.25rem !important;
-        max-height: 90vh;
+        max-height: 85vh;
         overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     }
 
-    /* Check appointment page */
+    /* Check Appointment - Premium Results */
     #check-result>div {
-        padding: 1rem !important;
+        background: #FFFFFF;
+        border-radius: 20px;
+        padding: 1.5rem !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        border: none;
     }
 
     #check-result button {
-        padding: 0.625rem !important;
+        padding: 0.75rem 1.25rem !important;
         font-size: 0.7rem !important;
+        border-radius: 25px;
+        font-weight: 600;
     }
 
-    /* Create/Edit modal fields */
-    #create-modal input,
-    #create-modal select,
-    #edit-modal input,
-    #edit-modal select {
-        width: 100%;
-        margin-bottom: 0.75rem;
+    /* Statistics Cards - Premium */
+    #view-statistics>div>div:first-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    /* Footer */
-    .footer,
+    #view-statistics>div>div:first-of-type>div {
+        background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+        border-radius: 20px;
+        padding: 1.5rem;
+        border: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Footer - Minimal */
     footer {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
         font-size: 0.7rem;
-    }
-
-    /* Hide unnecessary elements on mobile */
-    .hide-mobile {
-        display: none !important;
+        color: #999;
+        letter-spacing: 0.5px;
     }
 }
 
-/* Tablet adjustments */
+/* =========================================
+   TABLET STYLES (481px - 768px)
+   ========================================= */
 @media (min-width: 481px) and (max-width: 768px) {
-    .step-container {
-        margin: 2rem 1rem;
-        padding: 1.5rem;
+    .container {
+        padding: 0 2rem;
     }
 
-    .navbar {
-        padding: 1rem;
-    }
-
-    .nav-links a {
-        font-size: 0.8rem;
-        margin-left: 1rem;
+    .service-card {
+        flex-direction: row;
     }
 
     #times-container {
         grid-template-columns: repeat(4, 1fr);
     }
 
-    .dashboard-container {
-        padding: 0 1rem;
+    .dash-link {
+        padding: 0.75rem 1.25rem !important;
     }
 }
 
-/* Touch-friendly adjustments */
+/* =========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ========================================= */
 @media (hover: none) and (pointer: coarse) {
 
-    /* Larger touch targets */
+    /* Larger touch targets (Apple HIG: 44px) */
     .service-card,
     .date-card,
     .time-slot,
     .action-link,
     button {
-        min-height: 44px;
+        min-height: 48px;
     }
 
     .time-slot {
-        min-height: 44px;
+        min-height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    /* Remove hover effects on touch */
+    /* Remove hover effects */
     button:hover,
     .service-card:hover,
-    .date-card:hover {
+    .date-card:hover,
+    a:hover {
         transform: none;
         box-shadow: none;
     }
-
-    a:hover {
-        transform: none;
-    }
 }
 
-/* Safe area for iPhone X and newer (notch) */
+/* =========================================
+   iPHONE SAFE AREAS (Notch Support)
+   ========================================= */
 @supports (padding: max(0px)) {
+    body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
     .navbar {
+        padding-top: max(1rem, env(safe-area-inset-top));
         padding-left: max(1rem, env(safe-area-inset-left));
         padding-right: max(1rem, env(safe-area-inset-right));
     }
 
-    .footer,
     footer {
-        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
     }
 
     .step-container,
-    .dashboard-container {
+    .dashboard-container,
+    main {
         padding-left: max(1rem, env(safe-area-inset-left));
         padding-right: max(1rem, env(safe-area-inset-right));
     }
+}
+
+/* =========================================
+   DARK MODE SUPPORT (Optional)
+   ========================================= */
+@media (prefers-color-scheme: dark) {
+    /* Uncomment below to enable dark mode on mobile */
+    /*
+    body {
+        background: linear-gradient(180deg, #1A1A1A 0%, #0D0D0D 100%);
+        color: #E5E5E5;
+    }
+    
+    .service-card,
+    .date-card,
+    .time-slot,
+    .minimal-table tr,
+    #admin-calendar-grid {
+        background: #2D2D2D;
+        border-color: #3D3D3D;
+    }
+    
+    .navbar {
+        background: rgba(26, 26, 26, 0.95);
+    }
+    */
 }
