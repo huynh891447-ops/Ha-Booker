@@ -478,3 +478,368 @@ select:focus {
     justify-content: space-between;
     align-items: center;
 }
+
+/* Admin action links */
+.action-link {
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.875rem;
+    margin-right: 0.75rem;
+}
+
+.action-link:hover {
+    opacity: 0.7;
+}
+
+/* Admin table styles */
+.minimal-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.minimal-table th,
+.minimal-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.minimal-table th {
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE STYLES (iPhone)
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    /* Base adjustments */
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    /* Navbar mobile */
+    .navbar {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .nav-links a {
+        margin-left: 0;
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    /* Headings */
+    h1 {
+        font-size: 1.75rem !important;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Booking step container */
+    .step-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    /* Service cards - stack on mobile */
+    .service-card {
+        padding: 0.875rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .service-card h4 {
+        font-size: 1rem;
+    }
+
+    .service-card p {
+        font-size: 0.8rem;
+    }
+
+    /* Date cards - smaller on mobile */
+    .date-card {
+        min-width: 60px;
+        padding: 0.75rem 0.5rem;
+    }
+
+    .date-card div:first-child {
+        font-size: 0.65rem;
+    }
+
+    .date-card div:last-child {
+        font-size: 1rem;
+    }
+
+    /* Dates container - horizontal scroll */
+    #dates-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #dates-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Time slots grid */
+    #times-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.5rem;
+    }
+
+    .time-slot {
+        padding: 0.625rem 0.25rem;
+        font-size: 0.75rem;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    /* Form inputs */
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+        /* Prevents iOS zoom on focus */
+        padding: 0.875rem;
+    }
+
+    /* Admin Dashboard Mobile */
+    .dashboard-header {
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .dashboard-container {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+
+    /* Admin sidebar - horizontal tabs on mobile */
+    .dash-sidebar {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto;
+        gap: 0;
+        padding: 0;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .dash-link {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.7rem !important;
+        border-bottom: 2px solid transparent;
+    }
+
+    .dash-link.active {
+        border-bottom: 2px solid var(--color-secondary);
+    }
+
+    /* Calendar grid */
+    #admin-calendar-grid {
+        gap: 0.25rem;
+    }
+
+    #admin-calendar-grid>div {
+        font-size: 0.75rem;
+        padding: 0.25rem;
+    }
+
+    /* Appointments table - card view on mobile */
+    .minimal-table {
+        display: block;
+    }
+
+    .minimal-table thead {
+        display: none;
+    }
+
+    .minimal-table tbody {
+        display: block;
+    }
+
+    .minimal-table tr {
+        display: block;
+        background: white;
+        margin-bottom: 0.75rem;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #eee;
+    }
+
+    .minimal-table td {
+        display: block;
+        padding: 0.375rem 0;
+        border: none;
+        text-align: left;
+    }
+
+    .minimal-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 80px;
+        color: #666;
+        font-size: 0.75rem;
+    }
+
+    /* Action links on mobile */
+    .action-link {
+        display: inline-block;
+        padding: 0.375rem 0.75rem;
+        background: #f3f4f6;
+        border-radius: 4px;
+        margin: 0.25rem 0.25rem 0 0;
+        text-decoration: none;
+    }
+
+    /* Modals on mobile */
+    .modal-content,
+    [style*="background: white"][style*="padding: 2rem"] {
+        width: 95% !important;
+        max-width: none !important;
+        margin: 1rem;
+        padding: 1.25rem !important;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* Check appointment page */
+    #check-result>div {
+        padding: 1rem !important;
+    }
+
+    #check-result button {
+        padding: 0.625rem !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* Create/Edit modal fields */
+    #create-modal input,
+    #create-modal select,
+    #edit-modal input,
+    #edit-modal select {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Footer */
+    .footer,
+    footer {
+        padding: 1rem;
+        font-size: 0.7rem;
+    }
+
+    /* Hide unnecessary elements on mobile */
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 481px) and (max-width: 768px) {
+    .step-container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
+        margin-left: 1rem;
+    }
+
+    #times-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .dashboard-container {
+        padding: 0 1rem;
+    }
+}
+
+/* Touch-friendly adjustments */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .service-card,
+    .date-card,
+    .time-slot,
+    .action-link,
+    button {
+        min-height: 44px;
+    }
+
+    .time-slot {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Remove hover effects on touch */
+    button:hover,
+    .service-card:hover,
+    .date-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    a:hover {
+        transform: none;
+    }
+}
+
+/* Safe area for iPhone X and newer (notch) */
+@supports (padding: max(0px)) {
+    .navbar {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    .footer,
+    footer {
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+
+    .step-container,
+    .dashboard-container {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+}

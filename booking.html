@@ -10,6 +10,9 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Firebase SDK (compat version for non-module usage) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
         // CRITICAL: Clear booking session data immediately to prevent stale state
         try {
@@ -237,7 +240,7 @@
         </main>
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
     <script>
         lucide.createIcons();
 
