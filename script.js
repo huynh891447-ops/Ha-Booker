@@ -243,28 +243,140 @@ function selectService(id) {
     }
 }
 
+let bookingCalendarDate = new Date();
+
 function initDates() {
     const container = document.getElementById('dates-container');
     if (!container) return;
 
-    const today = new Date();
-    let html = '';
+    // Create calendar header and grid
+    renderBookingCalendar();
+}
 
-    for (let i = 0; i < 7; i++) {
-        const d = new Date(today);
-        d.setDate(today.getDate() + i);
-        const dayName = d.toLocaleDateString('en-US', { weekday: 'short' });
-        const dayNum = d.getDate();
-        const dateStr = d.toDateString();
+function renderBookingCalendar() {
+    const container = document.getElementById('dates-container');
+    if (!container) return;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Max date is 2 months from now
+    const maxDate = new Date(today);
+    maxDate.setMonth(maxDate.getMonth() + 2);
+
+    const year = bookingCalendarDate.getFullYear();
+    const month = bookingCalendarDate.getMonth();
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startDayOfWeek = firstDay.getDay();
+    const daysInMonth = lastDay.getDate();
+
+    const monthName = bookingCalendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    // Check if we can go prev/next
+    const canGoPrev = new Date(year, month, 1) > today;
+    const canGoNext = new Date(year, month + 1, 1) < maxDate;
+
+    let html = `
+        <div style="width: 100%; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <button onclick="changeBookingMonth(-1)" 
+                    style="background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; opacity: ${canGoPrev ? '1' : '0.3'};"
+                    ${canGoPrev ? '' : 'disabled'}>‹</button>
+                <span style="font-family: 'Playfair Display'; font-size: 1.25rem; font-style: italic;">${monthName}</span>
+                <button onclick="changeBookingMonth(1)" 
+                    style="background: none; border: none; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; opacity: ${canGoNext ? '1' : '0.3'};"
+                    ${canGoNext ? '' : 'disabled'}>›</button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.25rem; text-align: center;">
+    `;
+
+    // Day headers
+    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
+        html += `<div style="font-size: 0.7rem; color: #999; padding: 0.5rem 0; text-transform: uppercase;">${day}</div>`;
+    });
+
+    // Empty cells before first day
+    for (let i = 0; i < startDayOfWeek; i++) {
+        html += '<div></div>';
+    }
+
+    // Days
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dateObj = new Date(year, month, d);
+        const dateStr = dateObj.toDateString();
+
+        const isPast = dateObj < today;
+        const isTooFar = dateObj > maxDate;
+        const isDisabled = isPast || isTooFar;
+
+        // Safe date comparison - bookingData.date might be string or Date
+        let isSelected = false;
+        try {
+            if (bookingData.date) {
+                const selectedDate = bookingData.date instanceof Date
+                    ? bookingData.date
+                    : new Date(bookingData.date);
+                isSelected = selectedDate.toDateString() === dateStr;
+            }
+        } catch (e) {
+            isSelected = false;
+        }
+
+        const isToday = dateObj.toDateString() === today.toDateString();
+
+        const bgColor = isSelected ? '#333' : (isToday ? '#f5f5f5' : 'white');
+        const textColor = isSelected ? 'white' : (isDisabled ? '#ccc' : '#333');
+        const cursor = isDisabled ? 'not-allowed' : 'pointer';
 
         html += `
-            <div class="date-card" onclick="selectDate(this, '${dateStr}')">
-                <div style="font-size: 0.75rem;">${dayName}</div>
-                <div style="font-weight: bold; font-size: 1.25rem;">${dayNum}</div>
+            <div onclick="${isDisabled ? '' : `selectCalendarDate('${dateStr}')`}"
+                 style="padding: 0.75rem 0.25rem; cursor: ${cursor}; 
+                        background: ${bgColor}; color: ${textColor}; 
+                        border-radius: 4px; font-size: 0.9rem;
+                        ${isToday && !isSelected ? 'font-weight: bold;' : ''}
+                        ${isDisabled ? 'opacity: 0.4;' : ''}"
+                 ${isDisabled ? '' : 'class="date-cell"'}>
+                ${d}
             </div>
         `;
     }
+
+    html += `
+            </div>
+        </div>
+    `;
+
     container.innerHTML = html;
+}
+
+function changeBookingMonth(offset) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const maxDate = new Date(today);
+    maxDate.setMonth(maxDate.getMonth() + 2);
+
+    const newDate = new Date(bookingCalendarDate);
+    newDate.setMonth(newDate.getMonth() + offset);
+
+    // Don't go before current month or after 2 months ahead
+    if (offset < 0 && new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0) < today) return;
+    if (offset > 0 && new Date(newDate.getFullYear(), newDate.getMonth(), 1) > maxDate) return;
+
+    bookingCalendarDate = newDate;
+    renderBookingCalendar();
+}
+
+function selectCalendarDate(dateStr) {
+    bookingData.date = new Date(dateStr);
+    bookingData.time = null;
+    sessionStorage.setItem('ha_booking_data', JSON.stringify(bookingData));
+
+    renderBookingCalendar();
+    initTimes();
+    checkStep2Validity();
 }
 
 function selectDate(el, dateStr) {
@@ -284,9 +396,17 @@ async function initTimes() {
     const container = document.getElementById('times-container');
     if (!container) return;
 
-    container.innerHTML = '<p style="text-align:center; grid-column: span 2;">Loading availability...</p>';
+    container.innerHTML = '<p style="text-align:center; grid-column: span 3;">Loading availability...</p>';
 
-    const dateStr = bookingData.date.toDateString();
+    // Safety check - ensure date exists and is a Date object
+    if (!bookingData.date) {
+        container.innerHTML = '<p style="grid-column: span 3; text-align: center; color: #999; font-style: italic;">Please select a date first</p>';
+        return;
+    }
+
+    // Ensure bookingData.date is a Date object
+    const dateObj = bookingData.date instanceof Date ? bookingData.date : new Date(bookingData.date);
+    const dateStr = dateObj.toDateString();
     let occupiedIntervals = [];
 
     // Get existing appointments - DURATION AWARE
@@ -422,7 +542,11 @@ function renderReview() {
     }
     if (bookingData.date && bookingData.time) {
         const dtEl = document.getElementById('review-datetime');
-        if (dtEl) dtEl.innerText = bookingData.date.toLocaleDateString() + ' at ' + bookingData.time;
+        if (dtEl) {
+            // Ensure date is a Date object before calling toLocaleDateString
+            const dateObj = bookingData.date instanceof Date ? bookingData.date : new Date(bookingData.date);
+            dtEl.innerText = dateObj.toLocaleDateString() + ' at ' + bookingData.time;
+        }
     }
 }
 
@@ -436,9 +560,12 @@ async function confirmBooking() {
         return;
     }
 
+    // Ensure date is a Date object
+    const dateObj = bookingData.date instanceof Date ? bookingData.date : new Date(bookingData.date);
+
     const appointment = {
         service: bookingData.service,
-        date: bookingData.date.toDateString(),
+        date: dateObj.toDateString(),
         time: bookingData.time,
         customerName: name,
         customerPhone: phone,
@@ -456,7 +583,7 @@ async function confirmBooking() {
                 // Update existing appointment
                 await db.collection("appointments").doc(rescheduleId).update({
                     service: bookingData.service,
-                    date: bookingData.date.toDateString(),
+                    date: dateObj.toDateString(),
                     time: bookingData.time,
                     notes: notes
                 });

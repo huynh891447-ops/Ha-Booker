@@ -181,24 +181,34 @@
 
             <!-- Step 2: Date & Time -->
             <div id="step-2" class="step-content hidden">
-                <div style="margin-bottom: 3rem;">
-                    <h4
-                        style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
-                        Date</h4>
-                    <div id="dates-container"
-                        style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; justify-content: center;">
-                        <!-- Dates injected via JS -->
+                <!-- Side-by-side layout for desktop, stacked for mobile -->
+                <div class="booking-datetime-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+                    <!-- Calendar (Left) -->
+                    <div>
+                        <h4
+                            style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
+                            Select Date</h4>
+                        <div id="dates-container" style="max-width: 350px; margin: 0 auto;">
+                            <!-- Calendar injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Time Slots (Right) -->
+                    <div>
+                        <h4
+                            style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
+                            Select Time</h4>
+                        <div id="times-container"
+                            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                            <!-- Times injected via JS -->
+                            <p style="grid-column: span 3; text-align: center; color: #999; font-style: italic;">Please
+                                select a date first</p>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h4
-                        style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
-                        Time</h4>
-                    <div id="times-container" class="grid grid-cols-2 gap-4">
-                        <!-- Times injected via JS -->
-                    </div>
-                </div>
-                <div class="text-center" style="margin-top: 4rem;">
+
+                <div class="text-center" style="margin-top: 3rem;">
                     <button id="step-2-next" class="minimal-btn-primary" onclick="nextStep()" disabled>Continue</button>
                 </div>
             </div>

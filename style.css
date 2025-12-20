@@ -523,6 +523,13 @@ select:focus {
         grid-template-columns: 1fr !important;
     }
 
+    /* Booking page date/time side-by-side - stack on mobile */
+    .booking-datetime-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
     /* Base adjustments */
     body {
         font-size: 14px;
