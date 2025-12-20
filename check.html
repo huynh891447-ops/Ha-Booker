@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Status - Ha Huynh</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .minimal-input {
+            width: 100%;
+            padding: 1rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .minimal-input:focus {
+            border-bottom-color: #000;
+        }
+
+        .minimal-input::placeholder {
+            color: #aaa;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .minimal-btn-primary {
+            background: #333;
+            color: white;
+            padding: 1rem 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <nav class="navbar"
+            style="background: transparent; box-shadow: none; justify-content: center; padding-top: 2rem;">
+            <div class="nav-links">
+                <a href="index.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Home</a>
+                <a href="check.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; border-bottom: 1px solid #333;">Check
+                    Appointment</a>
+                <a href="booking.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Book</a>
+            </div>
+        </nav>
+
+        <main class="container" style="max-width: 600px; padding-top: 4rem; text-align: center;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 3rem; font-style: italic;">Check Appointment</h1>
+
+            <form onsubmit="event.preventDefault(); findAppointment();" style="margin-bottom: 3rem;">
+                <input type="text" id="check-name" class="minimal-input" placeholder="Enter your full name" required>
+                <button type="submit" class="minimal-btn-primary">Search</button>
+            </form>
+
+            <div id="check-result" class="hidden" style="text-align: left;">
+                <!-- Result Injected Here -->
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

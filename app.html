@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ha Huynh Artistry - All in One</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- STYLE.CSS CONTENT --- */
+        :root {
+            --color-primary: #333333;
+            --color-secondary: #B76E79;
+            --color-background: #FAF9F6;
+            --color-text: #2D2D2D;
+            --color-text-light: #666666;
+            --color-white: #FFFFFF;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 8px;
+            --radius-full: 9999px;
+            --shadow-sm: none;
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.5px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .gap-x-8 {
+            column-gap: 2rem;
+        }
+
+        .gap-y-4 {
+            row-gap: 1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Nav */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            padding: var(--spacing-lg);
+            background-color: transparent;
+            z-index: 100;
+        }
+
+        .nav-links a {
+            margin: 0 1rem;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            border-bottom-color: #333;
+        }
+
+        /* Buttons */
+        .minimal-btn {
+            padding: 1rem 3rem;
+            border: 1px solid #333;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .minimal-btn:hover {
+            background: #333;
+            color: white;
+        }
+
+        .minimal-btn-primary {
+            background: #333;
+            color: white;
+            padding: 1rem 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+        }
+
+        .minimal-btn-primary:hover {
+            background: #555;
+        }
+
+        .minimal-input {
+            width: 100%;
+            padding: 1rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s;
+        }
+
+        .minimal-input:focus {
+            border-bottom-color: #000;
+        }
+
+        /* Booking */
+        .service-card {
+            border: 1px solid transparent;
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover {
+            opacity: 0.6;
+        }
+
+        .service-card.selected {
+            border-bottom-color: #333;
+            font-weight: bold;
+        }
+
+        .date-card {
+            min-width: 60px;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .date-card.selected {
+            border-bottom-color: #333;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .time-slot {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .time-slot.selected {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .time-slot.disabled {
+            background: #f9f9f9;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Admin */
+        .minimal-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .minimal-table th {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 2px solid #333;
+            font-family: 'Playfair Display';
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        .minimal-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .action-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 1rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .dash-nav {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .dash-link {
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+            color: #999;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .dash-link.active {
+            color: #333;
+            border-bottom-color: #333;
+        }
+
+        /* SPA Utilities */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .page-section.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- ================= HOME PAGE ================= -->
+        <div id="page-home" class="page-section active">
+            <nav class="navbar">
+                <a onclick="navigateTo('home')" class="logo"
+                    style="font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; color: #333;">Ha Huynh</a>
+            </nav>
+
+            <main
+                style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem;">
+                <h1 class="hero-title"
+                    style="font-size: 5rem; letter-spacing: -2px; color: #2D2D2D; margin-bottom: 2rem;">
+                    <span
+                        style="display: block; font-size: 2rem; font-style: italic; color: #B76E79; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">Artistry
+                        by</span>
+                    Ha Huynh
+                </h1>
+                <p
+                    style="font-size: 1.25rem; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 4rem; font-weight: 300;">
+                    Bespoke Nail Design & Care</p>
+
+                <div style="display: flex; gap: 2rem; justify-content: center;">
+                    <button onclick="navigateTo('booking')" class="minimal-btn minimal-btn-primary">Book
+                        Appointment</button>
+                    <button onclick="navigateTo('check')" class="minimal-btn">Check Status</button>
+                </div>
+
+                <div style="margin-top: 6rem; display: flex; gap: 4rem; color: #888; font-size: 0.875rem;">
+                    <div><strong style="color: #333; display: block; margin-bottom: 0.5rem;">Services</strong>Manicure •
+                        Pedicure • Art</div>
+                    <div><strong style="color: #333; display: block; margin-bottom: 0.5rem;">Phone
+                            Number</strong>(219)-308-0810</div>
+                </div>
+            </main>
+
+            <footer style="text-align: center; padding: 2rem; color: #AAA; font-size: 0.75rem;">
+                <a onclick="navigateTo('login')" style="cursor: pointer; opacity: 0.5;">Admin</a>
+            </footer>
+        </div>
+
+        <!-- ================= SERVICES PAGE ================= -->
+        <div id="page-services" class="page-section">
+            <nav class="navbar">
+                <div class="nav-links">
+                    <a onclick="navigateTo('home')">Home</a>
+                    <a onclick="navigateTo('check')">Check Appointment</a>
+                    <a onclick="navigateTo('booking')">Book</a>
+                </div>
+            </nav>
+
+            <main class="container">
+                <h1 style="text-align: center; font-size: 3rem; margin-bottom: 4rem; font-style: italic;">Artistry Menu
+                </h1>
+
+                <!-- Hands -->
+                <div style="max-width: 900px; margin: 0 auto 4rem;">
+                    <h3
+                        style="text-align: center; font-family: 'Lato'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.875rem; color: #888; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                        Hands</h3>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                        <!-- Items -->
+                        <div onclick="navigateTo('booking', {service: 'Classic Manicure'})"
+                            style="margin-bottom: 1.5rem; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between;"><span
+                                    style="font-family: 'Playfair Display'; font-size: 1.25rem;">Classic
+                                    Manicure</span><span style="font-weight: 300;">$35</span></div>
+                            <div style="font-size: 0.875rem; color: #666; font-style: italic;">Nail shaping, cuticle
+                                care, hand massage, and regular polish.</div>
+                        </div>
+                        <div onclick="navigateTo('booking', {service: 'Gel Manicure'})"
+                            style="margin-bottom: 1.5rem; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between;"><span
+                                    style="font-family: 'Playfair Display'; font-size: 1.25rem;">Gel
+                                    Manicure</span><span style="font-weight: 300;">$50</span></div>
+                            <div style="font-size: 0.875rem; color: #666; font-style: italic;">Long-lasting gel polish
+                                with zero dry time. Includes removal.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feet -->
+                <div style="max-width: 900px; margin: 0 auto 4rem;">
+                    <h3
+                        style="text-align: center; font-family: 'Lato'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.875rem; color: #888; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                        Feet</h3>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                        <div onclick="navigateTo('booking', {service: 'Classic Pedicure'})"
+                            style="margin-bottom: 1.5rem; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between;"><span
+                                    style="font-family: 'Playfair Display'; font-size: 1.25rem;">Classic
+                                    Pedicure</span><span style="font-weight: 300;">$45</span></div>
+                            <div style="font-size: 0.875rem; color: #666; font-style: italic;">Soak, shaping, cuticle
+                                care, callus smoothing, and polish.</div>
+                        </div>
+                        <div onclick="navigateTo('booking', {service: 'Deluxe Pedicure'})"
+                            style="margin-bottom: 1.5rem; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between;"><span
+                                    style="font-family: 'Playfair Display'; font-size: 1.25rem;">Deluxe
+                                    Pedicure</span><span style="font-weight: 300;">$70</span></div>
+                            <div style="font-size: 0.875rem; color: #666; font-style: italic;">Extended massage,
+                                exfoliation scrub, and warm towel wrap.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Art -->
+                <div style="max-width: 900px; margin: 0 auto 4rem;">
+                    <h3
+                        style="text-align: center; font-family: 'Lato'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.875rem; color: #888; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                        Art</h3>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                        <div onclick="navigateTo('booking', {service: 'Intricate Nail Art'})"
+                            style="margin-bottom: 1.5rem; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between;"><span
+                                    style="font-family: 'Playfair Display'; font-size: 1.25rem;">Bespoke Nail
+                                    Art</span><span style="font-weight: 300;">$30+</span></div>
+                            <div style="font-size: 0.875rem; color: #666; font-style: italic;">Hand-painted designs,
+                                stones, or foil. Price varies by complexity.</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= BOOKING PAGE ================= -->
+        <div id="page-booking" class="page-section">
+            <nav class="navbar">
+                <div class="nav-links">
+                    <a onclick="navigateTo('home')">Home</a>
+                    <a onclick="navigateTo('check')">Check Appointment</a>
+                    <a onclick="navigateTo('booking')" class="active">Book</a>
+                </div>
+            </nav>
+
+            <main class="container" style="max-width: 700px; padding-top: 2rem; padding-bottom: 4rem;">
+                <div class="progress-indicator"
+                    style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 3rem;">
+                    <div class="dot active" id="dot-1"
+                        style="width: 8px; height: 8px; border-radius: 50%; background: #333;"></div>
+                    <div class="dot" id="dot-2" style="width: 8px; height: 8px; border-radius: 50%; background: #ddd;">
+                    </div>
+                    <div class="dot" id="dot-3" style="width: 8px; height: 8px; border-radius: 50%; background: #ddd;">
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <button id="back-btn" class="hidden" onclick="prevStep()"
+                        style="color: #666; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase;">←
+                        Back</button>
+                </div>
+
+                <h2 id="step-title"
+                    style="text-align: center; font-size: 2rem; margin-bottom: 3rem; font-weight: 400; font-style: italic;">
+                    Select Service</h2>
+
+                <!-- Step 1 -->
+                <div id="step-1" class="step-content">
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4" id="booking-services-grid">
+                        <!-- Injected JS -->
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="step-2" class="step-content hidden">
+                    <div style="margin-bottom: 3rem;">
+                        <h4
+                            style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
+                            Date</h4>
+                        <div id="dates-container"
+                            style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; justify-content: center;">
+                        </div>
+                    </div>
+                    <div>
+                        <h4
+                            style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
+                            Time</h4>
+                        <div id="times-container" class="grid grid-cols-2 gap-4"></div>
+                    </div>
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <button id="step-2-next" class="minimal-btn-primary" onclick="nextStep()"
+                            disabled>Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="step-3" class="step-content hidden">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <div style="margin-bottom: 2rem;">
+                            <div
+                                style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                                Service</div>
+                            <div id="review-service" style="font-family: 'Playfair Display'; font-size: 1.5rem;"></div>
+                        </div>
+                        <div style="margin-bottom: 2rem;">
+                            <div
+                                style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                                Date & Time</div>
+                            <div id="review-datetime" style="font-family: 'Playfair Display'; font-size: 1.5rem;"></div>
+                        </div>
+                        <div>
+                            <div
+                                style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                                Total</div>
+                            <div id="review-price"
+                                style="font-family: 'Playfair Display'; font-size: 1.5rem; color: #B76E79;"></div>
+                        </div>
+                    </div>
+                    <form onsubmit="event.preventDefault(); confirmBooking();"
+                        style="max-width: 400px; margin: 0 auto;">
+                        <input type="text" id="customer-name" class="minimal-input" placeholder="Your Full Name"
+                            required>
+                        <input type="tel" id="customer-phone" class="minimal-input" placeholder="Phone Number" required>
+                        <button type="submit" class="minimal-btn-primary" style="width: 100%; margin-top: 1rem;">Confirm
+                            Booking</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= CHECK PAGE ================= -->
+        <div id="page-check" class="page-section">
+            <nav class="navbar">
+                <div class="nav-links">
+                    <a onclick="navigateTo('home')">Home</a>
+                    <a onclick="navigateTo('check')" class="active">Check Appointment</a>
+                    <a onclick="navigateTo('booking')">Book</a>
+                </div>
+            </nav>
+            <main class="container" style="max-width: 600px; padding-top: 4rem; text-align: center;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 3rem; font-style: italic;">Check Appointment</h1>
+                <form onsubmit="event.preventDefault(); findAppointment();" style="margin-bottom: 3rem;">
+                    <input type="text" id="check-name" class="minimal-input" placeholder="Enter your full name"
+                        required>
+                    <button type="submit" class="minimal-btn-primary">Search</button>
+                </form>
+                <div id="check-result" class="hidden" style="text-align: left;"></div>
+            </main>
+        </div>
+
+        <!-- ================= LOGIN PAGE ================= -->
+        <div id="page-login" class="page-section" style="justify-content: center; align-items: center;">
+            <div style="text-align: center; width: 100%; max-width: 300px;">
+                <h1 style="font-size: 1.5rem; margin-bottom: 3rem; font-weight: normal; letter-spacing: 1px;">Admin
+                    Access</h1>
+                <form onsubmit="event.preventDefault(); handleLogin();">
+                    <input type="password" id="admin-pin" class="minimal-input" placeholder="PIN" required maxlength="4"
+                        style="text-align: center; letter-spacing: 4px;">
+                    <button type="submit" class="minimal-btn-primary" style="width: 100%;">Enter</button>
+                </form>
+                <a onclick="navigateTo('home')"
+                    style="display: block; margin-top: 2rem; font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 1px;">←
+                    Return Home</a>
+            </div>
+        </div>
+
+        <!-- ================= ADMIN PAGE ================= -->
+        <div id="page-admin" class="page-section">
+            <nav style="display: flex; justify-content: space-between; padding: 2rem;">
+                <div style="font-family: 'Playfair Display'; font-weight: bold; font-style: italic;">Ha Huynh / Admin
+                </div>
+                <button onclick="logout()"
+                    style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; color: #666;">Logout</button>
+            </nav>
+
+            <main class="container" style="max-width: 1000px; padding-top: 2rem;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; font-style: italic;">Dashboard</h1>
+                    <p id="current-date" style="color: #666; font-size: 0.875rem;"></p>
+                </div>
+
+                <div class="dash-nav">
+                    <div onclick="switchTab('appointments')" id="tab-btn-appointments" class="dash-link active">
+                        Appointments</div>
+                    <div onclick="switchTab('availability')" id="tab-btn-availability" class="dash-link">Availability
+                    </div>
+                    <div onclick="switchTab('services')" id="tab-btn-services" class="dash-link">Services</div>
+                    <div onclick="switchTab('settings')" id="tab-btn-settings" class="dash-link">Settings</div>
+                </div>
+
+                <!-- Appointments View -->
+                <div id="view-appointments"
+                    style="display: grid; grid-template-columns: 350px 1fr; gap: 2rem; align-items: start;">
+                    <!-- Calendar Left -->
+                    <div>
+                        <h3
+                            style="font-family: 'Playfair Display'; font-style: italic; margin-bottom: 1rem; font-size: 1.25rem;">
+                            Calendar</h3>
+                        <div style="background: white; border: 1px solid #eee; padding: 1rem;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <button onclick="changeAdminMonth(-1)" style="font-size: 1rem;">&lt;</button>
+                                <h4 id="admin-cal-month"
+                                    style="font-family: 'Lato'; font-size: 1rem; font-weight: bold; margin: 0;"></h4>
+                                <button onclick="changeAdminMonth(1)" style="font-size: 1rem;">&gt;</button>
+                            </div>
+                            <div id="admin-calendar-grid"
+                                style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.25rem; text-align: center;">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- List Right -->
+                    <div>
+                        <h3 id="list-title"
+                            style="font-family: 'Playfair Display'; font-style: italic; margin-bottom: 1rem; font-size: 1.25rem;">
+                            Schedule</h3>
+                        <div id="appointments-list">
+                            <div
+                                style="text-align: center; padding: 3rem; color: #888; border: 1px dashed #ddd; background: #fafafa;">
+                                Select a date on the calendar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden sections for Avail/Services/Settings (Simplified placeholders from original) -->
+                <div id="view-availability" class="hidden">
+                    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                        <div style="margin-bottom: 2rem;"><input type="date" id="avail-date-picker"
+                                onchange="loadAvailability()"
+                                style="padding: 1rem; border: 1px solid #ddd; width: 100%;"></div>
+                        <div id="avail-slots-container" class="grid grid-cols-2 gap-4 mb-6"></div>
+                        <button onclick="saveAvailability()" class="minimal-btn-primary">Save Changes</button>
+                    </div>
+                </div>
+
+                <div id="view-services" class="hidden">
+                    <div style="text-align: right; margin-bottom: 1rem;"><button onclick="openServiceModal()"
+                            class="minimal-btn-primary" style="padding: 0.5rem 1rem;">+ Add Service</button></div>
+                    <div id="services-list-container"></div>
+                </div>
+
+                <div id="view-settings" class="hidden">
+                    <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+                        <h2
+                            style="font-size: 1.5rem; margin-bottom: 2rem; font-family: 'Playfair Display'; font-style: italic;">
+                            Business Hours</h2>
+                        <!-- Simplified Config -->
+                        <div style="background: white; padding: 2rem; border: 1px solid #eee;">
+                            Please configure via source code for now.
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Modals -->
+            <div id="service-modal" class="hidden"
+                style="position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 200;">
+                <div style="background: white; padding: 3rem; border: 1px solid #333; width: 400px;">
+                    <h3>Service Details</h3>
+                    <input type="hidden" id="service-id">
+                    <input type="text" id="service-name" placeholder="Name" class="minimal-input">
+                    <input type="number" id="service-price" placeholder="Price" class="minimal-input">
+                    <input type="number" id="service-duration" placeholder="Duration (min)" class="minimal-input">
+                    <div style="display:flex; justify-content:center; gap:1rem;">
+                        <button onclick="closeServiceModal()">Cancel</button>
+                        <button onclick="saveService()" class="minimal-btn-primary"
+                            style="padding:0.5rem 2rem;">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="edit-modal" class="hidden"
+                style="position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 200;">
+                <div style="background: white; padding: 3rem; border: 1px solid #333; width: 400px;">
+                    <h3>Edit Appointment</h3>
+                    <input type="hidden" id="edit-id">
+                    <input type="date" id="edit-date" class="minimal-input" style="text-align:center;">
+                    <select id="edit-time" class="minimal-input" style="text-align:center; background:white;"></select>
+                    <div style="display:flex; justify-content:center; gap:1rem;">
+                        <button onclick="closeEditModal()">Cancel</button>
+                        <button onclick="saveEdit()" class="minimal-btn-primary"
+                            style="padding:0.5rem 2rem;">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= THANK YOU PAGE ================= -->
+        <div id="page-thankyou" class="page-section"
+            style="justify-content: center; align-items: center; text-align: center;">
+            <div style="max-width: 600px; padding: 2rem;">
+                <h1 style="font-size: 3rem; margin-bottom: 2rem; font-style: italic;">Thank You</h1>
+                <p style="font-size: 1.125rem; color: #666; margin-bottom: 3rem; line-height: 2;">
+                    Your appointment has been successfully booked.<br>
+                    We look forward to welcoming you to Ha Huynh Artistry.
+                </p>
+                <button onclick="navigateTo('home')" class="minimal-btn-primary">Return Home</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        lucide.createIcons();
+
+        // --- SPA ROUTER ---
+        function navigateTo(pageId, params = {}) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            // Show target
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.add('active');
+            window.scrollTo(0, 0);
+
+            // Lifecycle hooks
+            if (pageId === 'booking') {
+                if (params.service) {
+                    const services = JSON.parse(localStorage.getItem('ha_services') || '[]');
+                    const s = services.find(x => x.name === params.service);
+                    if (s) {
+                        currentStep = 1;
+                        updateUI();
+                        selectService(s); // Auto advance
+                    }
+                } else {
+                    currentStep = 1;
+                    updateUI();
+                    initServices();
+                }
+            }
+
+            if (pageId === 'admin') {
+                checkAuth(); // Redirects to login if fail
+                initDashboard();
+            }
+        }
+
+        // --- SHARED DATA ---
+        const DEFAULT_SERVICES = [
+            { id: 1, name: 'Classic Manicure', duration: 30, price: 35 },
+            { id: 2, name: 'Gel Manicure', duration: 45, price: 50 },
+            { id: 3, name: 'Luxury Spa Manicure', duration: 60, price: 65 },
+            { id: 4, name: 'Classic Pedicure', duration: 45, price: 45 },
+            { id: 5, name: 'Deluxe Pedicure', duration: 60, price: 70 },
+            { id: 6, name: 'Simple Nail Art', duration: 15, price: 15 },
+            { id: 7, name: 'Intricate Nail Art', duration: 30, price: 30 }
+        ];
+
+        const DEFAULT_TIMES = [
+            '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+            '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM',
+            '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM'
+        ];
+
+        // Init Data
+        let services = JSON.parse(localStorage.getItem('ha_services') || 'null');
+        if (!services) {
+            services = DEFAULT_SERVICES;
+            localStorage.setItem('ha_services', JSON.stringify(services));
+        }
+
+        let timeSlots = JSON.parse(localStorage.getItem('ha_timeslots') || 'null');
+        if (!timeSlots) {
+            timeSlots = DEFAULT_TIMES;
+            localStorage.setItem('ha_timeslots', JSON.stringify(timeSlots));
+        }
+
+        // --- BOOKING LOGIC ---
+        let currentStep = 1;
+        let bookingData = { service: null, date: null, time: null };
+
+        function initServices() {
+            const container = document.getElementById('booking-services-grid');
+            if (!container) return;
+            container.innerHTML = services.map(s => `
+                <div class="service-card" onclick="findServiceAndSelect(${s.id})">
+                    <div>
+                        <h4 style="font-weight: bold; margin-bottom: 0.25rem;">${s.name}</h4>
+                        <p style="font-size: 0.875rem; color: #666;">${s.duration} min • $${s.price}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function findServiceAndSelect(id) {
+            const s = services.find(x => x.id === id);
+            selectService(s);
+        }
+
+        function selectService(service) {
+            bookingData.service = service;
+            nextStep();
+            initDates();
+        }
+
+        function initDates() {
+            const container = document.getElementById('dates-container');
+            const today = new Date();
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                const dayName = d.toLocaleDateString('en-US', { weekday: 'short' });
+                const dayNum = d.getDate();
+                html += `
+                    <div class="date-card" onclick="selectDate(this, '${d.toDateString()}')">
+                        <div style="font-size: 0.75rem; opacity: 0.8;">${dayName}</div>
+                        <div style="font-weight: bold; font-size: 1.25rem;">${dayNum}</div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function selectDate(el, dateStr) {
+            bookingData.date = new Date(dateStr);
+            document.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            initTimes();
+            checkStep2Validity();
+        }
+
+        function initTimes() {
+            const container = document.getElementById('times-container');
+            // Simplified availability check for SPA
+            const selectedDateStr = bookingData.date.toDateString();
+            const allAppointments = JSON.parse(localStorage.getItem('ha_appointments') || '[]');
+            const todaysAppts = allAppointments.filter(a => a.date === selectedDateStr && a.status !== 'cancelled');
+            const allAvailability = JSON.parse(localStorage.getItem('ha_availability') || '{}');
+            const disabledSlots = allAvailability[selectedDateStr] || [];
+
+            container.innerHTML = timeSlots.map(t => {
+                const isTaken = todaysAppts.some(a => a.time === t); // simple collision
+                const isDisabled = disabledSlots.includes(t);
+                const isBlocked = isTaken || isDisabled;
+
+                return `
+                <button class="time-slot ${isBlocked ? 'disabled' : ''}" 
+                        onclick="${!isBlocked ? `selectTime(this, '${t}')` : ''}">
+                    ${t}
+                </button>
+            `}).join('');
+        }
+
+        function selectTime(el, time) {
+            bookingData.time = time;
+            document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+            el.classList.add('selected');
+            checkStep2Validity();
+        }
+
+        function checkStep2Validity() {
+            const btn = document.getElementById('step-2-next');
+            if (bookingData.date && bookingData.time) {
+                btn.disabled = false;
+            }
+        }
+
+        function nextStep() {
+            currentStep++;
+            updateUI();
+        }
+        function prevStep() {
+            currentStep--;
+            updateUI();
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+            for (let i = 1; i <= currentStep; i++) document.getElementById(`dot-${i}`).classList.add('active');
+
+            const titles = { 1: 'Select Service', 2: 'Select Time', 3: 'Contact Info' };
+            document.getElementById('step-title').innerText = titles[currentStep];
+            document.getElementById('back-btn').classList.toggle('hidden', currentStep === 1);
+
+            if (currentStep === 3) renderReview();
+        }
+
+        function renderReview() {
+            if (bookingData.service) {
+                document.getElementById('review-service').innerText = bookingData.service.name;
+                document.getElementById('review-price').innerText = '$' + bookingData.service.price;
+            }
+            if (bookingData.date) {
+                document.getElementById('review-datetime').innerText = bookingData.date.toLocaleDateString() + ' at ' + bookingData.time;
+            }
+        }
+
+        function confirmBooking() {
+            const name = document.getElementById('customer-name').value;
+            const phone = document.getElementById('customer-phone').value;
+            const appointment = {
+                id: Date.now(),
+                service: bookingData.service,
+                date: bookingData.date.toDateString(),
+                time: bookingData.time,
+                customerName: name,
+                customerPhone: phone,
+                status: 'confirmed'
+            };
+            const apps = JSON.parse(localStorage.getItem('ha_appointments') || '[]');
+            apps.push(appointment);
+            localStorage.setItem('ha_appointments', JSON.stringify(apps));
+            navigateTo('thankyou');
+        }
+
+        // --- CHECK APPOINTMENT ---
+        function findAppointment() {
+            const name = document.getElementById('check-name').value.trim();
+            const resultDiv = document.getElementById('check-result');
+            const apps = JSON.parse(localStorage.getItem('ha_appointments') || '[]');
+            const found = apps.filter(a => a.customerName.toLowerCase() === name.toLowerCase() && a.status !== 'cancelled');
+
+            resultDiv.classList.remove('hidden');
+            if (found.length === 0) {
+                resultDiv.innerHTML = '<p>No appointments found.</p>';
+            } else {
+                resultDiv.innerHTML = found.map(a => `
+                    <div style="background:#F0FFF4; padding:1rem; border:1px solid #C6F6D5; margin-bottom:1rem; border-radius:4px;">
+                        <strong>${new Date(a.date).toLocaleDateString()} at ${a.time}</strong><br>
+                        ${a.service.name}
+                    </div>
+                 `).join('');
+            }
+        }
+
+        // --- ADMIN AUTH ---
+        function handleLogin() {
+            if (document.getElementById('admin-pin').value === '1234') {
+                localStorage.setItem('ha_admin_auth', 'true');
+                navigateTo('admin');
+            } else {
+                alert('Incorrect PIN');
+            }
+        }
+        function checkAuth() {
+            if (!localStorage.getItem('ha_admin_auth')) navigateTo('login');
+        }
+        function logout() {
+            localStorage.removeItem('ha_admin_auth');
+            navigateTo('home');
+        }
+
+        // --- ADMIN DASHBOARD (CORRECTED INTERACTIVE LOGIC) ---
+        let currentAdminDate = new Date();
+        let selectedAdminDateStr = null;
+
+        function initDashboard() {
+            document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            renderAppointmentsList(null); // Default empty
+            renderAdminCalendar();
+        }
+
+        function renderAppointmentsList(filterDateStr = null) {
+            const listContainer = document.getElementById('appointments-list');
+            const titleEl = document.getElementById('list-title');
+            if (!listContainer) return;
+
+            if (filterDateStr === undefined) filterDateStr = selectedAdminDateStr;
+            selectedAdminDateStr = filterDateStr;
+
+            if (!filterDateStr) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: #888; border: 1px dashed #ddd; background: #fafafa;">
+                        <p style="margin-bottom: 0.5rem; font-family: 'Playfair Display'; font-style: italic; font-size: 1.25rem;">Select a date on the calendar</p>
+                        <p style="font-size: 0.8rem;">to view the schedule</p>
+                    </div>`;
+                if (titleEl) titleEl.innerText = 'Schedule';
+                renderAdminCalendar();
+                return;
+            }
+
+            const appointments = JSON.parse(localStorage.getItem('ha_appointments') || '[]');
+            let activeAppointments = appointments.filter(a => a.status !== 'cancelled' && a.date === filterDateStr);
+            activeAppointments.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+
+            if (titleEl) titleEl.innerText = new Date(filterDateStr).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            renderAdminCalendar();
+
+            if (activeAppointments.length === 0) {
+                listContainer.innerHTML = '<div class="text-center" style="padding: 3rem; color: #888; border: 1px dashed #ddd;">No appointments for this date.</div>';
+                return;
+            }
+
+            listContainer.innerHTML = `
+                <table class="minimal-table">
+                    <thead><tr><th>Time</th><th>Service</th><th>Guest</th><th>Action</th></tr></thead>
+                    <tbody>
+                        ${activeAppointments.map(apt => `
+                        <tr>
+                            <td>${apt.time}</td>
+                            <td>${apt.service.name}</td>
+                            <td>${apt.customerName} <div style="font-size:0.75rem;color:#999;">${apt.customerPhone}</div></td>
+                            <td>
+                                <span onclick="openEditModal(${apt.id})" class="action-link">Edit</span>
+                                <span onclick="cancelAppointment(${apt.id})" class="action-link" style="color:#B76E79;">Cancel</span>
+                            </td>
+                        </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function renderAdminCalendar() {
+            const container = document.getElementById('admin-calendar-grid');
+            const title = document.getElementById('admin-cal-month');
+            if (!container) return;
+
+            const year = currentAdminDate.getFullYear();
+            const month = currentAdminDate.getMonth();
+            title.innerText = currentAdminDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startDayOfWeek = firstDay.getDay();
+
+            const appointments = JSON.parse(localStorage.getItem('ha_appointments') || '[]');
+            const activeAppts = appointments.filter(a => a.status !== 'cancelled');
+
+            let html = '';
+            ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(d => html += `<div style="font-size:0.75rem;color:#999;padding-bottom:0.25rem;">${d}</div>`);
+            for (let i = 0; i < startDayOfWeek; i++) html += `<div></div>`;
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = new Date(year, month, day).toDateString();
+                const hasAppt = activeAppts.some(a => a.date === dateStr);
+                const isSelected = selectedAdminDateStr === dateStr;
+                const isToday = new Date().toDateString() === dateStr;
+
+                let bg = 'white'; let fg = '#333'; let border = '1px solid transparent';
+                if (isSelected) { bg = '#333'; fg = 'white'; }
+                else if (isToday) border = '1px solid #ddd';
+
+                html += `
+                    <div onclick="renderAppointmentsList('${dateStr}')" 
+                        style="cursor: pointer; border: ${border}; min-height: 40px; display: flex; flex-direction:column; align-items: center; justify-content: center; background: ${bg}; color: ${fg}; border-radius: 4px; padding: 4px;">
+                        <span style="font-size: 0.9rem; font-weight: ${isToday ? 'bold' : 'normal'}">${day}</span>
+                        ${hasAppt && !isSelected ? `<div style="width: 4px; height: 4px; background: #B76E79; border-radius: 50%; margin-top: 2px;"></div>` : ''}
+                    </div>
+                 `;
+            }
+            container.innerHTML = html;
+        }
+
+        function changeAdminMonth(offset) {
+            currentAdminDate.setMonth(currentAdminDate.getMonth() + offset);
+            renderAdminCalendar();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`view-${tab}`).classList.remove('hidden');
+            document.querySelectorAll('[id^="tab-btn-"]').forEach(el => el.classList.remove('active'));
+            document.getElementById(`tab-btn-${tab}`).classList.add('active');
+            if (tab === 'services') renderServicesList();
+        }
+
+        /* Simplified Edit/Cancel/Service Mgmt Logic (Copy of original script logic mostly implies...) */
+        function openEditModal(id) {
+            const app = JSON.parse(localStorage.getItem('ha_appointments')).find(a => a.id === id);
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-time').innerHTML = timeSlots.map(t => `<option value="${t}" ${t === app.time ? 'selected' : ''}>${t}</option>`).join('');
+            document.getElementById('edit-modal').classList.remove('hidden');
+        }
+        function closeEditModal() { document.getElementById('edit-modal').classList.add('hidden'); }
+        function cancelAppointment(id) {
+            if (!confirm('Cancel?')) return;
+            const apps = JSON.parse(localStorage.getItem('ha_appointments'));
+            apps.find(a => a.id === id).status = 'cancelled';
+            localStorage.setItem('ha_appointments', JSON.stringify(apps));
+            renderAppointmentsList();
+        }
+        function saveEdit() {
+            const id = parseInt(document.getElementById('edit-id').value);
+            const dateVal = document.getElementById('edit-date').value;
+            const time = document.getElementById('edit-time').value;
+            if (!dateVal || !time) return;
+
+            // Fix date constructor
+            const [y, m, d] = dateVal.split('-');
+            const newDateStr = new Date(parseInt(y), parseInt(m) - 1, parseInt(d)).toDateString();
+
+            const apps = JSON.parse(localStorage.getItem('ha_appointments'));
+            const idx = apps.findIndex(a => a.id === id);
+            if (idx !== -1) {
+                apps[idx].date = newDateStr;
+                apps[idx].time = time;
+                localStorage.setItem('ha_appointments', JSON.stringify(apps));
+                renderAppointmentsList();
+                closeEditModal();
+            }
+        }
+
+        // --- INIT ---
+        // Start at Home
+        navigateTo('home');
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book - Ha Huynh</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // CRITICAL: Clear booking session data immediately to prevent stale state
+        try {
+            if (!window.location.search.includes('reschedule')) {
+                sessionStorage.removeItem('ha_booking_data');
+            }
+        } catch (e) { }
+    </script>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+
+        .progress-indicator {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #333;
+            transform: scale(1.2);
+        }
+
+        .minimal-input {
+            width: 100%;
+            padding: 1rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s;
+        }
+
+        .minimal-input:focus {
+            border-bottom-color: #000;
+        }
+
+        .minimal-input::placeholder {
+            color: #aaa;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+        }
+
+        .minimal-btn-primary {
+            background: #333;
+            color: white;
+            padding: 1rem 3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+        }
+
+        .minimal-btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Custom overrides for booking elements */
+        .service-card {
+            border: 1px solid transparent;
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+            border-radius: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover {
+            background: transparent;
+            opacity: 0.6;
+        }
+
+        .service-card.selected {
+            background: transparent;
+            border-bottom-color: #333;
+        }
+
+        .service-card.selected h4 {
+            color: #000;
+        }
+
+        .date-card {
+            border: 1px solid transparent;
+            background: transparent;
+            padding: 0.5rem;
+            min-width: 60px;
+        }
+
+        .date-card.selected {
+            border-bottom: 2px solid #333;
+            background: transparent;
+            color: #333;
+            border-radius: 0;
+        }
+
+        .time-slot {
+            border: 1px solid #ddd;
+            border-radius: 0;
+            font-size: 0.875rem;
+        }
+
+        .time-slot.selected {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <nav class="navbar"
+            style="background: var(--color-background); box-shadow: none; justify-content: center; padding-top: 2rem; position: sticky; top: 0; z-index: 100;">
+            <div class="nav-links">
+                <a href="index.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Home</a>
+                <a href="check.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Check
+                    Appointment</a>
+                <a href="booking.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; border-bottom: 1px solid #333;">Book</a>
+            </div>
+        </nav>
+
+        <main class="container" style="max-width: 700px; padding-top: 6rem; padding-bottom: 4rem;">
+
+            <div class="progress-indicator">
+                <div class="dot active" id="dot-1"></div>
+                <div class="dot" id="dot-2"></div>
+                <div class="dot" id="dot-3"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <button id="back-btn" class="hidden" onclick="prevStep()"
+                    style="color: #666; font-size: 0.875rem; letter-spacing: 1px; text-transform: uppercase;">
+                    ← Back
+                </button>
+            </div>
+
+            <h2 id="step-title"
+                style="text-align: center; font-size: 2rem; margin-bottom: 3rem; font-weight: 400; font-style: italic;">
+                Select Service</h2>
+
+            <!-- Step 1: Service Selection -->
+            <div id="step-1" class="step-content">
+                <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <!-- Services injected via JS -->
+                </div>
+            </div>
+
+            <!-- Step 2: Date & Time -->
+            <div id="step-2" class="step-content hidden">
+                <div style="margin-bottom: 3rem;">
+                    <h4
+                        style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
+                        Date</h4>
+                    <div id="dates-container"
+                        style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; justify-content: center;">
+                        <!-- Dates injected via JS -->
+                    </div>
+                </div>
+                <div>
+                    <h4
+                        style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888; text-align: center;">
+                        Time</h4>
+                    <div id="times-container" class="grid grid-cols-2 gap-4">
+                        <!-- Times injected via JS -->
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 4rem;">
+                    <button id="step-2-next" class="minimal-btn-primary" onclick="nextStep()" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Review -->
+            <div id="step-3" class="step-content hidden">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                            Service</div>
+                        <div id="review-service" style="font-family: 'Playfair Display'; font-size: 1.5rem;"></div>
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <div style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                            Date & Time</div>
+                        <div id="review-datetime" style="font-family: 'Playfair Display'; font-size: 1.5rem;"></div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">
+                            Total</div>
+                        <div id="review-price"
+                            style="font-family: 'Playfair Display'; font-size: 1.5rem; color: #B76E79;"></div>
+                    </div>
+                </div>
+
+                <form onsubmit="event.preventDefault(); confirmBooking();" style="max-width: 400px; margin: 0 auto;">
+
+                    <input type="text" id="customer-name" class="minimal-input" placeholder="Your Full Name" required>
+                    <input type="tel" id="customer-phone" class="minimal-input" placeholder="(123)-456-7890"
+                        maxlength="14" required>
+                    <textarea id="customer-notes" class="minimal-input"
+                        placeholder="Special requests or notes (max 200 characters)" rows="3" maxlength="200"
+                        style="resize: vertical; min-height: 80px;"></textarea>
+
+                    <button type="submit" class="minimal-btn-primary" style="width: 100%; margin-top: 1rem;">Confirm
+                        Booking</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Auto-format phone number as (xxx)-xxx-xxxx
+        const phoneInput = document.getElementById('customer-phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function (e) {
+                // Remove all non-numeric characters
+                let value = e.target.value.replace(/\D/g, '');
+
+                // Limit to 10 digits
+                value = value.substring(0, 10);
+
+                // Format as (xxx)-xxx-xxxx
+                let formatted = '';
+                if (value.length > 0) {
+                    formatted = '(' + value.substring(0, 3);
+                }
+                if (value.length >= 4) {
+                    formatted += ')-' + value.substring(3, 6);
+                }
+                if (value.length >= 7) {
+                    formatted += '-' + value.substring(6, 10);
+                }
+
+                e.target.value = formatted;
+            });
+        }
+
+        // Force Step 2 button to be disabled on page load
+        const step2Btn = document.getElementById('step-2-next');
+        if (step2Btn) {
+            step2Btn.disabled = true;
+            step2Btn.style.opacity = '0.5';
+        }
+
+        // Clear old date/time on fresh page load to prevent stale data
+        sessionStorage.removeItem('ha_booking_data');
+    </script>
+</body>
+
+</html>

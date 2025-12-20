@@ -1,0 +1,480 @@
+:root {
+    /* Color Palette */
+    --color-primary: #333333;
+    /* Deep Charcoal for primary actions */
+    --color-secondary: #B76E79;
+    /* Rose Gold Accent (Sparse use) */
+    --color-background: #FAF9F6;
+    /* Off-White / Alabaster */
+    --color-text: #2D2D2D;
+    /* Soft Black */
+    --color-text-light: #666666;
+    --color-white: #FFFFFF;
+
+    /* Typography */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+
+    /* Spacing */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 4rem;
+
+    /* Radius */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-full: 9999px;
+
+    /* Shadow - Minimal or None */
+    --shadow-sm: none;
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    /* Lighter headings */
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -0.5px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.7;
+    transform: translateY(-1px);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Smooth page transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.app-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Form inputs smooth focus */
+input,
+textarea,
+select {
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    transform: scale(1.01);
+    box-shadow: 0 0 0 2px rgba(183, 110, 121, 0.2);
+}
+
+/* Utilities equivalent to Tailwind classes used */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
+.grid {
+    display: grid;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.gap-x-8 {
+    column-gap: 2rem;
+}
+
+.gap-y-4 {
+    row-gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem;
+}
+
+.text-white {
+    color: white;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .md\:flex-row {
+        flex-direction: row;
+    }
+
+    .md\:text-5xl {
+        font-size: 3rem;
+    }
+
+    .md\:text-7xl {
+        font-size: 4.5rem;
+    }
+}
+
+/* Specific Component Styles */
+/* Service Menu */
+.service-menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.service-category h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: var(--spacing-sm);
+}
+
+.service-item {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid #F0F0F0;
+    transition: all 0.3s ease;
+    animation: slideIn 0.4s ease-out;
+}
+
+.service-item:hover {
+    background: #FAFAFA;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--color-secondary);
+}
+
+.service-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.service-item .service-price {
+    font-size: 0.875rem;
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.service-item p {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.nav-links a {
+    margin-left: var(--spacing-lg);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: var(--radius-full);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 1.125rem;
+    /* text-lg */
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    background-color: #a05a65;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: var(--color-primary);
+}
+
+.btn-secondary {
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+.btn-secondary.active {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Booking specific */
+.step-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.service-card {
+    border: 1px solid #e5e7eb;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-card:hover,
+.service-card.selected {
+    border-color: var(--color-primary);
+    background-color: #FFF0F5;
+}
+
+.date-card {
+    min-width: 80px;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-md);
+    text-align: center;
+    cursor: pointer;
+}
+
+.date-card.selected {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.time-slot {
+    padding: 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.time-slot.selected {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.time-slot.disabled {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+    opacity: 0.6;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+    color: #666;
+}
+
+/* Authentication Styles */
+.auth-container {
+    max-width: 400px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Admin Dashboard Styles */
+.dashboard-header {
+    background: white;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.appointment-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--color-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

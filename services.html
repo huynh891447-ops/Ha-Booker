@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Ha Huynh Artistry</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .menu-section {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .menu-category {
+            font-family: 'Lato', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.875rem;
+            color: #888;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .menu-item:hover {
+            opacity: 0.6;
+        }
+
+        .menu-item a {
+            display: block;
+            width: 100%;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+        }
+
+        .item-price {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+        }
+
+        .item-desc {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <nav class="navbar"
+            style="background: transparent; box-shadow: none; justify-content: center; padding-top: 2rem; margin-bottom: 2rem;">
+            <div class="nav-links">
+                <a href="index.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Home</a>
+                <a href="check.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Check
+                    Appointment</a>
+                <a href="booking.html"
+                    style="margin: 0 1rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Book</a>
+            </div>
+        </nav>
+
+        <main class="container">
+            <h1 style="text-align: center; font-size: 3rem; margin-bottom: 4rem; font-style: italic;">Artistry Menu</h1>
+
+            <!-- Hands -->
+            <div class="menu-section">
+                <h3 class="menu-category">Hands</h3>
+
+                <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="menu-item" onclick="window.location.href='booking.html?service=Classic Manicure'">
+                        <div style="width: 100%">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="item-name">Classic Manicure</span>
+                                <span class="item-price">$35</span>
+                            </div>
+                            <div class="item-desc">Nail shaping, cuticle care, hand massage, and regular polish.</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onclick="window.location.href='booking.html?service=Gel Manicure'">
+                        <div style="width: 100%">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="item-name">Gel Manicure</span>
+                                <span class="item-price">$50</span>
+                            </div>
+                            <div class="item-desc">Long-lasting gel polish with zero dry time. Includes removal.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feet -->
+            <div class="menu-section">
+                <h3 class="menu-category">Feet</h3>
+
+                <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="menu-item" onclick="window.location.href='booking.html?service=Classic Pedicure'">
+                        <div style="width: 100%">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="item-name">Classic Pedicure</span>
+                                <span class="item-price">$45</span>
+                            </div>
+                            <div class="item-desc">Soak, shaping, cuticle care, callus smoothing, and polish.</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onclick="window.location.href='booking.html?service=Deluxe Pedicure'">
+                        <div style="width: 100%">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="item-name">Deluxe Pedicure</span>
+                                <span class="item-price">$70</span>
+                            </div>
+                            <div class="item-desc">Extended massage, exfoliation scrub, and warm towel wrap.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art -->
+            <div class="menu-section">
+                <h3 class="menu-category">Art</h3>
+
+                <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="menu-item" onclick="window.location.href='booking.html?service=Intricate Nail Art'">
+                        <div style="width: 100%">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="item-name">Bespoke Nail Art</span>
+                                <span class="item-price">$30+</span>
+                            </div>
+                            <div class="item-desc">Hand-painted designs, stones, or foil. Price varies by complexity.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer style="text-align: center; padding: 2rem; color: #AAA; font-size: 0.75rem; margin-top: auto;">
+            © 2025 Ha Huynh Artistry
+        </footer>
+    </div>
+</body>
+
+</html>

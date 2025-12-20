@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ha Huynh</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+
+        .dash-nav {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .dash-link {
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+            color: #999;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .dash-link.active {
+            color: #333;
+            border-bottom-color: #333;
+        }
+
+        .minimal-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .minimal-table th {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 2px solid #333;
+            font-family: 'Playfair Display';
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        .minimal-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 99px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .action-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 1rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .action-link:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="min-height: 100vh;">
+        <nav style="display: flex; justify-content: space-between; padding: 2rem;">
+            <div style="font-family: 'Playfair Display'; font-weight: bold; font-style: italic;">Ha Huynh / Quản Trị
+            </div>
+            <button onclick="logout()"
+                style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; color: #666;">Đăng
+                Xuất</button>
+        </nav>
+
+        <main class="container" style="max-width: 1000px; padding-top: 2rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; font-style: italic;">Bảng Điều Khiển</h1>
+                <p id="current-date" style="color: #666; font-size: 0.875rem;"></p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="dash-nav">
+                <div onclick="switchTab('appointments')" id="tab-btn-appointments" class="dash-link active">Lịch Hẹn
+                </div>
+                <div onclick="switchTab('statistics')" id="tab-btn-statistics" class="dash-link">Thống Kê</div>
+                <div onclick="switchTab('availability')" id="tab-btn-availability" class="dash-link">Lịch Làm Việc</div>
+                <div onclick="switchTab('services')" id="tab-btn-services" class="dash-link">Dịch Vụ</div>
+                <div onclick="switchTab('settings')" id="tab-btn-settings" class="dash-link">Cài Đặt</div>
+            </div>
+
+            <!-- APPOINTMENTS VIEW -->
+            <!-- APPOINTMENTS VIEW -->
+            <div id="view-appointments"
+                style="display: grid; grid-template-columns: 350px 1fr; gap: 2rem; align-items: start;">
+                <!-- Calendar View (Left) -->
+                <div>
+                    <h3
+                        style="font-family: 'Playfair Display'; font-style: italic; margin-bottom: 1rem; font-size: 1.25rem;">
+                        Lịch</h3>
+                    <div style="background: white; border: 1px solid #eee; padding: 1rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <button onclick="changeAdminMonth(-1)"
+                                style="background: none; border: none; font-size: 1rem; cursor: pointer; padding: 0.5rem;">&lt;</button>
+                            <h4 id="admin-cal-month"
+                                style="font-family: 'Lato'; font-size: 1rem; font-weight: bold; margin: 0;">September
+                                2025</h4>
+                            <button onclick="changeAdminMonth(1)"
+                                style="background: none; border: none; font-size: 1rem; cursor: pointer; padding: 0.5rem;">&gt;</button>
+                        </div>
+                        <button onclick="jumpToToday()"
+                            style="width: 100%; padding: 0.5rem; background: #f5f5f5; border: 1px solid #ddd; margin-bottom: 1rem; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                            Hôm Nay
+                        </button>
+                        <div id="admin-calendar-grid"
+                            style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.25rem; text-align: center;">
+                            <!-- JS Injected -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- List View (Right) -->
+                <div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 id="list-title"
+                            style="font-family: 'Playfair Display'; font-style: italic; font-size: 1.25rem; margin: 0;">
+                            Lịch Trình</h3>
+                        <button onclick="openCreateModal()"
+                            style="background: #333; color: white; border: none; padding: 0.5rem 1rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">
+                            + Tạo Lịch Hẹn
+                        </button>
+                    </div>
+                    <div id="appointments-list">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATISTICS VIEW -->
+            <div id="view-statistics" class="hidden">
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <h2
+                        style="font-family: 'Playfair Display'; font-style: italic; text-align: center; margin-bottom: 3rem; font-size: 2rem;">
+                        Thống Kê Tổng Quan
+                    </h2>
+
+                    <!-- Stats Cards -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem;">
+                        <!-- Total Appointments -->
+                        <div style="background: white; border: 1px solid #eee; padding: 2rem; text-align: center;">
+                            <div
+                                style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 0.5rem;">
+                                Tổng Đặt Lịch
+                            </div>
+                            <div id="stat-total"
+                                style="font-family: 'Playfair Display'; font-size: 3rem; font-weight: bold; color: #333;">
+                                0
+                            </div>
+                            <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">Tháng Này</div>
+                        </div>
+
+                        <!-- Revenue -->
+                        <div style="background: white; border: 1px solid #eee; padding: 2rem; text-align: center;">
+                            <div
+                                style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 0.5rem;">
+                                Doanh Thu
+                            </div>
+                            <div id="stat-revenue"
+                                style="font-family: 'Playfair Display'; font-size: 3rem; font-weight: bold; color: #B76E79;">
+                                $0
+                            </div>
+                            <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">Tháng Này</div>
+                        </div>
+
+                        <!-- Upcoming -->
+                        <div style="background: white; border: 1px solid #eee; padding: 2rem; text-align: center;">
+                            <div
+                                style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 0.5rem;">
+                                Sắp Tới
+                            </div>
+                            <div id="stat-upcoming"
+                                style="font-family: 'Playfair Display'; font-size: 3rem; font-weight: bold; color: #333;">
+                                0
+                            </div>
+                            <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">7 Ngày Tới</div>
+                        </div>
+                    </div>
+
+                    <!-- Popular Services -->
+                    <div style="background: white; border: 1px solid #eee; padding: 2rem;">
+                        <h3
+                            style="font-family: 'Playfair Display'; font-style: italic; margin-bottom: 1.5rem; font-size: 1.5rem;">
+                            Dịch Vụ Phổ Biến
+                        </h3>
+                        <div id="popular-services-list">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AVAILABILITY VIEW -->
+            <div id="view-availability" class="hidden">
+                <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                    <div style="margin-bottom: 2rem;">
+                        <input type="date" id="avail-date-picker" onchange="loadAvailability()"
+                            style="padding: 1rem; border: 1px solid #ddd; font-family: 'Lato'; font-size: 1rem;">
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+                        <button onclick="blockEntireDay()"
+                            style="padding: 0.75rem 1.5rem; background: #f5f5f5; border: 1px solid #ddd; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">
+                            Chặn Cả Ngày
+                        </button>
+                        <button onclick="clearAllSlots()"
+                            style="padding: 0.75rem 1.5rem; background: #f5f5f5; border: 1px solid #ddd; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">
+                            Xóa Tất Cả
+                        </button>
+                    </div>
+
+                    <div id="avail-slots-container" class="grid grid-cols-4 gap-4 mb-6">
+                        <!-- Slots injected via JS -->
+                    </div>
+
+                    <button onclick="saveAvailability()"
+                        style="background: #333; color: white; padding: 1rem 3rem; text-transform: uppercase; letter-spacing: 1px; font-size: 0.875rem;">
+                        Lưu Thay Đổi
+                    </button>
+                </div>
+            </div>
+
+            <!-- SERVICES VIEW -->
+            <div id="view-services" class="hidden">
+                <div style="text-align: right; margin-bottom: 1rem;">
+                    <button onclick="openServiceModal()"
+                        style="background: #333; color: white; padding: 0.75rem 1.5rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">
+                        + Thêm Dịch Vụ
+                    </button>
+                </div>
+                <div id="services-list-container">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+            <!-- SETTINGS VIEW (Time Config) -->
+            <div id="view-settings" class="hidden">
+                <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+                    <h2
+                        style="font-size: 1.5rem; margin-bottom: 2rem; font-family: 'Playfair Display'; font-style: italic;">
+                        Giờ Làm Việc</h2>
+
+                    <div style="background: white; padding: 2rem; border: 1px solid #eee;">
+                        <div style="margin-bottom: 1.5rem; text-align: left;">
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Giờ
+                                Bắt Đầu</label>
+                            <input type="time" id="config-start-time" value="09:00" class="minimal-input"
+                                style="padding: 0.5rem; font-size: 1rem; text-align: left;">
+                        </div>
+                        <div style="margin-bottom: 1.5rem; text-align: left;">
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Giờ
+                                Kết Thúc</label>
+                            <input type="time" id="config-end-time" value="17:00" class="minimal-input"
+                                style="padding: 0.5rem; font-size: 1rem; text-align: left;">
+                        </div>
+                        <div style="margin-bottom: 2rem; text-align: left;">
+                            <label
+                                style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Khoảng
+                                Thời Gian
+                                (Phút)</label>
+                            <select id="config-interval" class="minimal-input"
+                                style="padding: 0.5rem; font-size: 1rem; text-align: left;">
+                                <option value="15">15 phút</option>
+                                <option value="30" selected>30 phút</option>
+                                <option value="60">60 phút</option>
+                            </select>
+                        </div>
+
+                        <button onclick="generateTimeSlots()"
+                            style="width: 100%; background: #333; color: white; padding: 1rem; text-transform: uppercase; letter-spacing: 1px;">Cập
+                            Nhật
+                            Khung Giờ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERVICE MODAL -->
+            <div id="service-modal" class="hidden"
+                style="position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 100;">
+                <div
+                    style="background: white; padding: 3rem; border: 1px solid #333; width: 400px; max-width: 90%; text-align: center;">
+                    <h3 id="service-modal-title"
+                        style="margin-bottom: 2rem; font-size: 2rem; font-family: 'Playfair Display'; font-style: italic;">
+                        Thêm Dịch Vụ</h3>
+                    <input type="hidden" id="service-id">
+
+                    <input type="text" id="service-name" placeholder="Tên Dịch Vụ" class="minimal-input"
+                        style="margin-bottom: 1rem;">
+                    <input type="number" id="service-price" placeholder="Giá ($)" class="minimal-input"
+                        style="margin-bottom: 1rem;">
+                    <input type="number" id="service-duration" placeholder="Thời Gian (phút)" class="minimal-input"
+                        style="margin-bottom: 2rem;">
+
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button onclick="closeServiceModal()"
+                            style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Hủy</button>
+                        <button onclick="saveService()"
+                            style="background: #333; color: white; padding: 0.75rem 2rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Lưu</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EDIT MODAL -->
+            <div id="edit-modal" class="hidden"
+                style="position: fixed; inset: 0; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; z-index: 100;">
+                <div
+                    style="background: white; padding: 3rem; border: 1px solid #333; width: 400px; max-width: 90%; text-align: center;">
+                    <h3
+                        style="margin-bottom: 2rem; font-size: 2rem; font-family: 'Playfair Display'; font-style: italic;">
+                        Sửa Lịch Hẹn</h3>
+                    <input type="hidden" id="edit-id">
+
+                    <div class="mb-6">
+                        <label for="edit-service"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Dịch
+                            Vụ Mới</label>
+                        <select id="edit-service"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333; background: white;">
+                            <!-- Injected by JS -->
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="edit-date"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Ngày
+                            Mới</label>
+                        <input type="date" id="edit-date"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333; text-align: center;">
+                    </div>
+                    <div class="mb-6">
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Giờ
+                            Mới</label>
+                        <select id="edit-time"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333; text-align: center; background: white;">
+                            <!-- Option injected via JS -->
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                        <button onclick="closeEditModal()"
+                            style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Hủy</button>
+                        <button onclick="saveEdit()"
+                            style="background: #333; color: white; padding: 0.75rem 2rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Cập
+                            Nhật</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- CREATE APPOINTMENT MODAL -->
+            <div id="create-modal" class="hidden"
+                style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100;">
+                <div
+                    style="background: white; padding: 2rem; border-radius: 8px; width: 400px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                    <h3
+                        style="margin-bottom: 2rem; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 2px;">
+                        Tạo Lịch Hẹn Mới</h3>
+
+                    <div style="margin-bottom: 1.5rem; text-align: left;">
+                        <label for="create-service"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Dịch
+                            Vụ</label>
+                        <select id="create-service"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333; background: white;">
+                            <!-- Injected by JS -->
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; text-align: left;">
+                        <label for="create-date"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Ngày</label>
+                        <input type="date" id="create-date"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333;">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; text-align: left;">
+                        <label for="create-time"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Giờ</label>
+                        <select id="create-time"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333; background: white;">
+                            <!-- Injected by JS -->
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; text-align: left;">
+                        <label for="create-name"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Tên
+                            Khách Hàng</label>
+                        <input type="text" id="create-name" placeholder="Nhập tên khách hàng"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333;">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; text-align: left;">
+                        <label for="create-phone"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Số
+                            Điện Thoại</label>
+                        <input type="tel" id="create-phone" placeholder="Nhập số điện thoại"
+                            style="width: 100%; padding: 0.5rem; border: none; border-bottom: 1px solid #333;">
+                    </div>
+
+                    <div style="margin-bottom: 2rem; text-align: left;">
+                        <label for="create-notes"
+                            style="display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Ghi
+                            Chú</label>
+                        <textarea id="create-notes" placeholder="Ghi chú (tùy chọn)" rows="2"
+                            style="width: 100%; padding: 0.5rem; border: 1px solid #eee; resize: vertical;"></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button onclick="closeCreateModal()"
+                            style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">Hủy</button>
+                        <button onclick="saveNewAppointment()"
+                            style="background: #333; color: white; padding: 0.75rem 2rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">
+                            Tạo Lịch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTES MODAL -->
+            <div id="notes-modal" class="hidden"
+                style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100;">
+                <div
+                    style="background: white; padding: 2rem; border-radius: 8px; width: 500px; max-width: 90%; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                    <h3
+                        style="margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Playfair Display'; font-style: italic;">
+                        Ghi Chú Khách Hàng</h3>
+
+                    <div id="notes-content"
+                        style="background: #fafafa; padding: 1.5rem; border-radius: 4px; text-align: left; font-size: 0.95rem; line-height: 1.6; color: #333; min-height: 80px; max-height: 300px; overflow-y: auto;">
+                        <!-- Notes injected here -->
+                    </div>
+
+                    <button onclick="closeNotesModal()"
+                        style="margin-top: 1.5rem; background: #333; color: white; padding: 0.75rem 2rem; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; border-radius: 4px;">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Init
+        checkAuth();
+        initDashboard();
+    </script>
+</body>
+
+</html>

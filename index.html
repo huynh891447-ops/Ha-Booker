@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ha Huynh Artistry - Minimal</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background-color: #FAF9F6;
+            /* Off-White / Alabaster */
+            color: #333;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            letter-spacing: -2px;
+            color: #2D2D2D;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .minimal-btn {
+            padding: 1rem 3rem;
+            border: 1px solid #333;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .minimal-btn:hover {
+            background: #333;
+            color: white;
+        }
+
+        .minimal-btn-primary {
+            background: #333;
+            color: white;
+        }
+
+        .minimal-btn-primary:hover {
+            background: #555;
+            border-color: #555;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="min-height: 100vh; display: flex; flex-direction: column;">
+        <nav class="navbar"
+            style="background: transparent; box-shadow: none; justify-content: center; padding-top: 2rem;">
+            <!-- Minimal Nav: Just Logo or nothing? Let's keep a small logo -->
+            <a href="index.html" class="logo"
+                style="font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; color: #333;">Ha Huynh</a>
+        </nav>
+
+        <main
+            style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem;">
+
+            <h1 class="hero-title">
+                <span
+                    style="display: block; font-size: 2rem; font-style: italic; color: #B76E79; margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">Artistry
+                    by</span>
+                Ha Huynh
+            </h1>
+
+            <p class="hero-subtitle">Bespoke Nail Design & Care</p>
+
+            <div class="cta-container">
+                <a href="booking.html" class="minimal-btn minimal-btn-primary">Book Appointment</a>
+                <a href="check.html" class="minimal-btn">Check Status</a>
+            </div>
+
+            <div style="margin-top: 6rem; display: flex; gap: 4rem; color: #888; font-size: 0.875rem;">
+                <div>
+                    <strong style="color: #333; display: block; margin-bottom: 0.5rem;">Services</strong>
+                    Manicure • Pedicure • Art
+                </div>
+                <div>
+                    <strong style="color: #333; display: block; margin-bottom: 0.5rem;">Phone Number</strong>
+                    (219)-308-0810
+                </div>
+            </div>
+
+        </main>
+
+        <footer style="text-align: center; padding: 2rem; color: #AAA; font-size: 0.75rem;">
+            <a href="login.html" style="text-decoration: none; color: inherit; opacity: 0.5;">Admin</a>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
